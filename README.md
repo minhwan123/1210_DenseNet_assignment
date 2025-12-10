@@ -96,6 +96,16 @@ The following metrics are computed:
 - **Full classification report**
 - **Confusion matrix**
 
+---
+
+## 📉 Loss Curve
+![Loss Curve](loss_curve.png)
+
+## 📈 Accuracy Curve
+![Accuracy Curve](accuracy_curve.png)
+
+## 🧪 Confusion Matrix
+![Confusion Matrix](confusion_matrix.png)
 
 
 
