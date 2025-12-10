@@ -107,5 +107,6 @@ The following metrics are computed:
 ## 🧪 Confusion Matrix
 ![Confusion Matrix](confusion_matrix.png)
 
-
+## Metrics
+![Metrics](Metrics.png)
 
