@@ -22,11 +22,3 @@ Classes:
 - Best model saved as `best_densenet.pth`  
 - Final evaluation on Testing set (accuracy + classification report)
 
-## 🖥 Environment
-- VS Code (local training)  
-- Google Colab with L4 GPU
-
----
-
-**Author:** MinHwan Noh (2022113600)  
-Computer Vision Course Assignment
