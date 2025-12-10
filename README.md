@@ -23,15 +23,6 @@ The model is trained on the **POC_Dataset** and evaluated using accuracy metrics
 
 ---
 
-## 📁 Repository Structure
-├── densenet_assignment.py # Full training + evaluation + visualization code
-├── accuracy_curve.png # Test & train accuracy over epochs
-├── loss_curve.png # Training loss curve
-├── confusion_matrix.png # Final confusion matrix (test set)
-└── README.md
-
-
----
 
 ## 🧠 Model Description
 - **Model:** DenseNet-121  
