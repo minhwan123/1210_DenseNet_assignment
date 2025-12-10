@@ -1,122 +1,101 @@
-🧬 DenseNet-Based Histology Image Classification
+# 🧬 DenseNet-Based Histology Image Classification
 
-This repository contains an implementation of a DenseNet-121 classifier trained on a custom POC histology dataset as part of a Computer Vision assignment.
+This repository contains an implementation of a **DenseNet-121 classifier** trained on a custom **POC histology dataset** as part of a **Computer Vision assignment**.
 
-Student: MinHwan Noh
+---
 
-Student ID: 2022113600
+## 👤 Student Information
+**Name:** MinHwan Noh  
+**Student ID:** 2022113600  
+**Course:** Computer Vision  
+**Framework:** PyTorch  
+**Environment:** Google Colab (GPU: NVIDIA T4 / CUDA)
 
-Course: Computer Vision
+---
 
-Framework: PyTorch
+## 🚀 Project Overview
 
-Environment: Google Colab (GPU: NVIDIA T4 / CUDA)
+The goal of this project is to classify four types of histological tissue images using a **DenseNet-121** model pretrained on ImageNet and fine-tuned on the POC dataset.
 
-🚀 Project Overview
-
-The goal of this project is to classify four types of histological tissue images using a DenseNet-121 model pretrained on ImageNet and fine-tuned on the POC dataset.
-
-Tissue Classes
-
-Chorionic_villi
-
-Decidual_tissue
-
-Hemorrhage
-
-Trophoblastic_tissue
+### **Tissue Classes**
+- Chorionic_villi  
+- Decidual_tissue  
+- Hemorrhage  
+- Trophoblastic_tissue  
 
 This dataset contains real histological images organized into class-specific folders.
 
-📁 Dataset Structure & Splitting
+---
 
-The dataset is stored in Google Drive at:
+## 📁 Dataset Structure & Splitting
 
-/content/drive/MyDrive/POC_Dataset
+The dataset is stored in Google Drive 
 
 
-Folder structure:
+### **Train / Validation / Test Split**
 
-POC_Dataset/
-├── Training/
-│   ├── Chorionic_villi/
-│   ├── Decidual_tissue/
-│   ├── Hemorrhage/
-│   └── Trophoblastic_tissue/
-└── Testing/
-    ├── Chorionic_villi/
-    ├── Decidual_tissue/
-    ├── Hemorrhage/
-    └── Trophoblastic_tissue/
+The `Training/` folder is loaded first and then split randomly into:
 
-Train / Validation / Test Split
+- **Train:** 80%  
+- **Validation:** 20%  
 
-The Training/ folder is loaded first.
+The `Testing/` folder is used only for **final performance evaluation**.
 
-Then split randomly into:
+---
 
-Train: 80%
+## 🧠 Model Description
 
-Validation: 20%
+This project uses **DenseNet-121** from `torchvision.models`:
 
-The Testing/ folder is used only for final performance evaluation.
+- **Backbone:** DenseNet-121  
+- **Weights:** ImageNet pretrained  
+- **Modified classifier:**  
 
-Splitting is implemented using:
+---
 
-random_split(full_train_dataset, [train_size, val_size])
+## 🎨 Data Augmentation (Training Only)
 
-🧠 Model Description
+To improve generalization and reduce overfitting, the following augmentations are applied to the **training set only**:
 
-This project uses DenseNet-121 from torchvision.models:
+- Random horizontal flip  
+- Random vertical flip  
+- Random rotation (±15°)  
+- Color jitter (brightness / contrast / saturation / hue)
 
-Backbone: DenseNet-121
+Validation and test images use only resizing and normalization (no augmentation).
 
-Weights: ImageNet pretrained
 
-Modified classifier:
-Last layer → nn.Linear(in_features, 4) for four classes
+---
 
-Image Preprocessing
+## ⚙️ Training Configuration
 
-Resize to 224×224
+- **Optimizer:** Adam  
+  - Learning Rate: `1e-4`  
+  - Weight Decay: `1e-4` (L2 regularization)
 
-Convert to tensor
+- **Loss Function:** CrossEntropyLoss  
+- **Epochs:** 30  
+- **Batch Size:** 32  
+- **Device:** CUDA (T4 GPU) if available  
 
-Normalize with ImageNet mean/std:
+### **Best Model Saving**
+The model is saved automatically when validation accuracy improves
 
-mean = [0.485, 0.456, 0.406]
-std  = [0.229, 0.224, 0.225]
+---
 
-🎨 Data Augmentation (Training Only)
+## 🧪 Final Evaluation on Test Set
 
-To improve generalization, the following augmentations are used:
+After training is complete, the best checkpoint is loaded and evaluated on the **independent test set**.
 
-Random horizontal flip
+The following metrics are computed:
 
-Random vertical flip
+- **Test Accuracy**
+- **Precision** (per class & macro)
+- **Recall** (per class & macro)
+- **F1-score** (per class & macro)
+- **Full classification report**
+- **Confusion matrix**
 
-Random rotation (±15°)
 
-Color jitter (brightness/contrast/saturation/hue)
 
-Validation and test images are not augmented.
 
-⚙️ Training Configuration
-
-Optimizer: Adam
-
-LR = 1e-4
-
-Weight decay = 1e-4 (L2 regularization)
-
-Loss: CrossEntropyLoss
-
-Epochs: 30
-
-Batch size: 32
-
-Device: CUDA (T4 GPU) if available
-
-Best model saving:
-Saved automatically when validation accuracy improves
-→ best_densenet.pth
